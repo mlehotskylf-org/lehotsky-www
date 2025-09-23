@@ -21,7 +21,19 @@ function decodePayload(cookieVal) {
 app.get("/", (req, res) => {
   res.type("html").send(`<h1>lehotsky-www</h1>
 <p><a href="https://intercom-auth.lehotsky.net/login?return_to=${encodeURIComponent("https://app.lehotsky.net/complete-login")}">Login</a></p>
-<p>Try <a href="/test">/test</a> after login.</p>`);
+<p>Try <a href="/test">/test</a> after login.</p>
+
+<script>
+  window.intercomSettings = {
+    api_base: "https://api-iam.intercom.io",
+    app_id: "mxl90k6y",
+  };
+</script>
+
+<script>
+  // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/mxl90k6y'
+  (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/mxl90k6y';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+</script>`);
 });
 
 // This endpoint "consumes" the ic_redirect cookie and shows status.
