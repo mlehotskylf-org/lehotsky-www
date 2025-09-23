@@ -20,7 +20,7 @@ function decodePayload(cookieVal) {
 
 app.get("/", (req, res) => {
   res.type("html").send(`<h1>lehotsky-www</h1>
-<p><a href="https://intercom-auth.lehotsky.net/login?return_to=${encodeURIComponent("https://www.lehotsky.net/complete-login")}">Login</a></p>
+<p><a href="https://intercom-auth.lehotsky.net/login?return_to=${encodeURIComponent("https://app.lehotsky.net/complete-login")}">Login</a></p>
 <p>Try <a href="/test">/test</a> after login.</p>`);
 });
 
