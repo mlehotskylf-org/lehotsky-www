@@ -24,9 +24,22 @@ app.get("/", (req, res) => {
     // Check if this page was opened for login (from Intercom widget)
     var urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('login')) {
-      // Redirect to auth service, preserving current URL as return_to
+      // Redirect to auth service
       var currentUrl = window.location.origin + window.location.pathname;
-      window.location.href = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(currentUrl);
+      var authUrl = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(currentUrl);
+      window.location.href = authUrl;
+    }
+
+    // Check if we just returned from login (has auth cookies but no login param)
+    if (!urlParams.has('login') && document.cookie.includes('ic_')) {
+      // Notify other tabs using localStorage (cross-tab communication)
+      console.log('Login complete, notifying other tabs');
+      localStorage.setItem('intercom_login_event', Date.now());
+
+      // Try to close window (if opened from Intercom widget)
+      setTimeout(function() {
+        window.close();
+      }, 1000);
     }
   </script>
 
@@ -43,19 +56,11 @@ app.get("/", (req, res) => {
   </script>
 
   <script>
-    // Listen for login success from popup/new tab
-    window.addEventListener('message', function(event) {
-      console.log('Received postMessage from:', event.origin, 'data:', event.data);
-
-      // Security: only accept messages from auth domain
-      if (event.origin !== 'https://intercom-auth.lehotsky.net') {
-        console.log('Ignoring message from unauthorized origin');
-        return;
-      }
-
-      if (event.data.type === 'intercom_login_success') {
-        console.log('Login successful in popup, reloading page to pick up new session');
-        // Reload the page to pick up new cookies and re-initialize Intercom
+    // Listen for login events from other tabs via localStorage
+    window.addEventListener('storage', function(event) {
+      if (event.key === 'intercom_login_event' && event.newValue) {
+        console.log('Login detected in another tab, reloading page');
+        // Reload the page to pick up new session and reinitialize Intercom
         window.location.reload();
       }
     });
@@ -79,9 +84,22 @@ app.get("/members", (req, res) => {
     // Check if this page was opened for login (from Intercom widget)
     var urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('login')) {
-      // Redirect to auth service, preserving current URL as return_to
+      // Redirect to auth service
       var currentUrl = window.location.origin + window.location.pathname;
-      window.location.href = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(currentUrl);
+      var authUrl = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(currentUrl);
+      window.location.href = authUrl;
+    }
+
+    // Check if we just returned from login (has auth cookies but no login param)
+    if (!urlParams.has('login') && document.cookie.includes('ic_')) {
+      // Notify other tabs using localStorage (cross-tab communication)
+      console.log('Login complete, notifying other tabs');
+      localStorage.setItem('intercom_login_event', Date.now());
+
+      // Try to close window (if opened from Intercom widget)
+      setTimeout(function() {
+        window.close();
+      }, 1000);
     }
   </script>
 
@@ -98,19 +116,11 @@ app.get("/members", (req, res) => {
   </script>
 
   <script>
-    // Listen for login success from popup/new tab
-    window.addEventListener('message', function(event) {
-      console.log('Received postMessage from:', event.origin, 'data:', event.data);
-
-      // Security: only accept messages from auth domain
-      if (event.origin !== 'https://intercom-auth.lehotsky.net') {
-        console.log('Ignoring message from unauthorized origin');
-        return;
-      }
-
-      if (event.data.type === 'intercom_login_success') {
-        console.log('Login successful in popup, reloading page to pick up new session');
-        // Reload the page to pick up new cookies and re-initialize Intercom
+    // Listen for login events from other tabs via localStorage
+    window.addEventListener('storage', function(event) {
+      if (event.key === 'intercom_login_event' && event.newValue) {
+        console.log('Login detected in another tab, reloading page');
+        // Reload the page to pick up new session and reinitialize Intercom
         window.location.reload();
       }
     });
