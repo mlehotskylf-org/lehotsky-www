@@ -2,9 +2,10 @@ import express from "express";
 
 const app = express();
 
-// Set Referrer-Policy to include path in referer header
+// Set Referrer-Policy to include path in referer header for cross-origin requests
+// Using 'unsafe-url' to send full URL (including path) to intercom-auth.lehotsky.net
 app.use((req, res, next) => {
-  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Referrer-Policy', 'unsafe-url');
   next();
 });
 
