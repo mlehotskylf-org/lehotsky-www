@@ -3,9 +3,9 @@ import express from "express";
 const app = express();
 
 // Set Referrer-Policy to include path in referer header for cross-origin requests
-// Using 'unsafe-url' to send full URL (including path) to intercom-auth.lehotsky.net
+// Using 'no-referrer-when-downgrade' to send full URL for HTTPS→HTTPS navigation
 app.use((req, res, next) => {
-  res.setHeader('Referrer-Policy', 'unsafe-url');
+  res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
   next();
 });
 
