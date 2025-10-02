@@ -2,6 +2,12 @@ import express from "express";
 
 const app = express();
 
+// Set Referrer-Policy to include path in referer header
+app.use((req, res, next) => {
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  next();
+});
+
 app.get("/", (req, res) => {
   res.type("html").send(`<!DOCTYPE html>
 <html>
