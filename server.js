@@ -41,11 +41,9 @@ app.get("/", (req, res) => {
       }
 
       if (event.data.type === 'intercom_login_success') {
-        console.log('Login successful in popup, refreshing Intercom');
-        // Refresh Intercom to pick up new cookies
-        if (window.Intercom) {
-          window.Intercom('update');
-        }
+        console.log('Login successful in popup, reloading page to pick up new session');
+        // Reload the page to pick up new cookies and re-initialize Intercom
+        window.location.reload();
       }
     });
   </script>
@@ -85,11 +83,9 @@ app.get("/members", (req, res) => {
       }
 
       if (event.data.type === 'intercom_login_success') {
-        console.log('Login successful in popup, refreshing Intercom');
-        // Refresh Intercom to pick up new cookies
-        if (window.Intercom) {
-          window.Intercom('update');
-        }
+        console.log('Login successful in popup, reloading page to pick up new session');
+        // Reload the page to pick up new cookies and re-initialize Intercom
+        window.location.reload();
       }
     });
   </script>
