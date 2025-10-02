@@ -35,8 +35,11 @@ app.get("/", (req, res) => {
   <script>
     // Listen for login success from popup/new tab
     window.addEventListener('message', function(event) {
+      console.log('Received postMessage from:', event.origin, 'data:', event.data);
+
       // Security: only accept messages from auth domain
       if (event.origin !== 'https://intercom-auth.lehotsky.net') {
+        console.log('Ignoring message from unauthorized origin');
         return;
       }
 
@@ -77,8 +80,11 @@ app.get("/members", (req, res) => {
   <script>
     // Listen for login success from popup/new tab
     window.addEventListener('message', function(event) {
+      console.log('Received postMessage from:', event.origin, 'data:', event.data);
+
       // Security: only accept messages from auth domain
       if (event.origin !== 'https://intercom-auth.lehotsky.net') {
+        console.log('Ignoring message from unauthorized origin');
         return;
       }
 
