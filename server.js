@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 <body>
   <h1>app.lehotsky.net</h1>
   <h2>Dashboard</h2>
-  <p><a href="https://intercom-auth.lehotsky.net/login?return_to=https://app.lehotsky.net/">Login</a></p>
+  <p><a href="https://intercom-auth.lehotsky.net/login?return_to=https://app.lehotsky.net/" target="_blank">Login</a></p>
 
   <script>
     window.intercomSettings = {
@@ -62,7 +62,7 @@ app.get("/members", (req, res) => {
 <body>
   <h1>app.lehotsky.net</h1>
   <h2>Members</h2>
-  <p><a href="https://intercom-auth.lehotsky.net/login?return_to=https://app.lehotsky.net/">Login</a></p>
+  <p><a href="https://intercom-auth.lehotsky.net/login?return_to=https://app.lehotsky.net/" target="_blank">Login</a></p>
 
   <script>
     window.intercomSettings = {
