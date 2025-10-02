@@ -21,6 +21,16 @@ app.get("/", (req, res) => {
   <p><a href="https://intercom-auth.lehotsky.net/login?return_to=https://app.lehotsky.net/" target="_blank" rel="opener">Login</a></p>
 
   <script>
+    // Check if this page was opened for login (from Intercom widget)
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('login')) {
+      // Redirect to auth service, preserving current URL as return_to
+      var currentUrl = window.location.origin + window.location.pathname;
+      window.location.href = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(currentUrl);
+    }
+  </script>
+
+  <script>
     window.intercomSettings = {
       api_base: "https://api-iam.intercom.io",
       app_id: "rr2dqmfv"
@@ -64,6 +74,16 @@ app.get("/members", (req, res) => {
   <h1>app.lehotsky.net</h1>
   <h2>Members</h2>
   <p><a href="https://intercom-auth.lehotsky.net/login?return_to=https://app.lehotsky.net/" target="_blank" rel="opener">Login</a></p>
+
+  <script>
+    // Check if this page was opened for login (from Intercom widget)
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('login')) {
+      // Redirect to auth service, preserving current URL as return_to
+      var currentUrl = window.location.origin + window.location.pathname;
+      window.location.href = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(currentUrl);
+    }
+  </script>
 
   <script>
     window.intercomSettings = {
