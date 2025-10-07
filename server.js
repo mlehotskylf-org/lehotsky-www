@@ -51,17 +51,8 @@ app.get("/", (req, res) => {
       window.location.replace(authUrl);
     }
 
-    // Check if we just returned from login (has auth cookies but no login param)
-    if (!urlParams.has('login') && document.cookie.includes('ic_')) {
-      // Notify other tabs using localStorage (cross-tab communication)
-      console.log('Login complete, notifying other tabs');
-      localStorage.setItem('intercom_login_event', Date.now());
-
-      // Try to close window (if opened from Intercom widget)
-      setTimeout(function() {
-        window.close();
-      }, 1000);
-    }
+    // Note: After login, user will have 2 tabs open
+    // They can manually close the extra tab if desired
   </script>
 
   <script>
@@ -77,15 +68,9 @@ app.get("/", (req, res) => {
   </script>
 
   <script>
-    // Listen for login events from other tabs via localStorage
-    window.addEventListener('storage', function(event) {
-      if (event.key === 'intercom_login_event' && event.newValue) {
-        console.log('Login detected in another tab, reloading page');
-        // Reload the page to pick up new session and reinitialize Intercom
-        window.location.reload();
-      }
-    });
-  </script>
+    // Note: Cross-tab communication removed - using simple 2-tab approach
+    // User will have 2 tabs after login and can manually close the extra one
+
 </body>
 </html>`);
 });
@@ -132,17 +117,8 @@ app.get("/members", (req, res) => {
       window.location.replace(authUrl);
     }
 
-    // Check if we just returned from login (has auth cookies but no login param)
-    if (!urlParams.has('login') && document.cookie.includes('ic_')) {
-      // Notify other tabs using localStorage (cross-tab communication)
-      console.log('Login complete, notifying other tabs');
-      localStorage.setItem('intercom_login_event', Date.now());
-
-      // Try to close window (if opened from Intercom widget)
-      setTimeout(function() {
-        window.close();
-      }, 1000);
-    }
+    // Note: After login, user will have 2 tabs open
+    // They can manually close the extra tab if desired
   </script>
 
   <script>
@@ -158,15 +134,9 @@ app.get("/members", (req, res) => {
   </script>
 
   <script>
-    // Listen for login events from other tabs via localStorage
-    window.addEventListener('storage', function(event) {
-      if (event.key === 'intercom_login_event' && event.newValue) {
-        console.log('Login detected in another tab, reloading page');
-        // Reload the page to pick up new session and reinitialize Intercom
-        window.location.reload();
-      }
-    });
-  </script>
+    // Note: Cross-tab communication removed - using simple 2-tab approach
+    // User will have 2 tabs after login and can manually close the extra one
+
 </body>
 </html>`);
 });
