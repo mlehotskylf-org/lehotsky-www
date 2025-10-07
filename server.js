@@ -46,14 +46,9 @@ app.get("/", (req, res) => {
       // Clear the stored URL after reading
       localStorage.removeItem('pre_login_url');
 
-      // TEMP: Add 5 second delay for debugging - gives time to open DevTools
+      // Redirect to auth service with the original page as return_to
       var authUrl = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(returnTo);
-      console.log('DEBUG: Will redirect to auth in 5 seconds...');
-      console.log('DEBUG: Auth URL:', authUrl);
-      setTimeout(function() {
-        console.log('DEBUG: Redirecting now...');
-        window.location.replace(authUrl);
-      }, 5000);
+      window.location.replace(authUrl);
     }
 
     // Check if we just returned from login (has auth cookies but no login param)
@@ -132,14 +127,9 @@ app.get("/members", (req, res) => {
       // Clear the stored URL after reading
       localStorage.removeItem('pre_login_url');
 
-      // TEMP: Add 5 second delay for debugging - gives time to open DevTools
+      // Redirect to auth service with the original page as return_to
       var authUrl = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(returnTo);
-      console.log('DEBUG: Will redirect to auth in 5 seconds...');
-      console.log('DEBUG: Auth URL:', authUrl);
-      setTimeout(function() {
-        console.log('DEBUG: Redirecting now...');
-        window.location.replace(authUrl);
-      }, 5000);
+      window.location.replace(authUrl);
     }
 
     // Check if we just returned from login (has auth cookies but no login param)
