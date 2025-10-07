@@ -21,14 +21,30 @@ app.get("/", (req, res) => {
   <p><a href="https://intercom-auth.lehotsky.net/login?return_to=https://app.lehotsky.net/" target="_blank" rel="opener">Login</a></p>
 
   <script>
+    // Store current page URL in localStorage for auth redirects
+    // This persists across tabs and survives Intercom widget link clicks
+    if (!window.location.search.includes('login')) {
+      localStorage.setItem('pre_login_url', window.location.href);
+      console.log('Stored current page for login redirect:', window.location.href);
+    }
+
     // Check if this page was opened for login (from Intercom widget)
     var urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('login')) {
-      // Capture where user came from (e.g., lehotsky.net/members, riscv.org/resources)
-      // document.referrer contains the full URL of the page that linked here
-      var returnTo = document.referrer || (window.location.origin + window.location.pathname);
+      // Get where user came from - try multiple sources in order:
+      // 1. localStorage (most reliable - survives tab switches)
+      // 2. document.referrer (if available)
+      // 3. Fallback to domain root
+      var returnTo = localStorage.getItem('pre_login_url') ||
+                     document.referrer ||
+                     (window.location.origin + '/');
 
-      console.log('Login triggered from:', returnTo);
+      console.log('Login triggered, returning to:', returnTo);
+      console.log('  - from localStorage:', localStorage.getItem('pre_login_url'));
+      console.log('  - from referrer:', document.referrer);
+
+      // Clear the stored URL after reading
+      localStorage.removeItem('pre_login_url');
 
       // Redirect to auth service with the original page as return_to
       var authUrl = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(returnTo);
@@ -86,14 +102,30 @@ app.get("/members", (req, res) => {
   <p><a href="https://intercom-auth.lehotsky.net/login?return_to=https://app.lehotsky.net/" target="_blank" rel="opener">Login</a></p>
 
   <script>
+    // Store current page URL in localStorage for auth redirects
+    // This persists across tabs and survives Intercom widget link clicks
+    if (!window.location.search.includes('login')) {
+      localStorage.setItem('pre_login_url', window.location.href);
+      console.log('Stored current page for login redirect:', window.location.href);
+    }
+
     // Check if this page was opened for login (from Intercom widget)
     var urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('login')) {
-      // Capture where user came from (e.g., lehotsky.net/members, riscv.org/resources)
-      // document.referrer contains the full URL of the page that linked here
-      var returnTo = document.referrer || (window.location.origin + window.location.pathname);
+      // Get where user came from - try multiple sources in order:
+      // 1. localStorage (most reliable - survives tab switches)
+      // 2. document.referrer (if available)
+      // 3. Fallback to domain root
+      var returnTo = localStorage.getItem('pre_login_url') ||
+                     document.referrer ||
+                     (window.location.origin + '/');
 
-      console.log('Login triggered from:', returnTo);
+      console.log('Login triggered, returning to:', returnTo);
+      console.log('  - from localStorage:', localStorage.getItem('pre_login_url'));
+      console.log('  - from referrer:', document.referrer);
+
+      // Clear the stored URL after reading
+      localStorage.removeItem('pre_login_url');
 
       // Redirect to auth service with the original page as return_to
       var authUrl = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(returnTo);
