@@ -24,10 +24,15 @@ app.get("/", (req, res) => {
     // Check if this page was opened for login (from Intercom widget)
     var urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('login')) {
-      // Redirect to auth service
-      var currentUrl = window.location.origin + window.location.pathname;
-      var authUrl = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(currentUrl);
-      window.location.href = authUrl;
+      // Capture where user came from (e.g., lehotsky.net/members, riscv.org/resources)
+      // document.referrer contains the full URL of the page that linked here
+      var returnTo = document.referrer || (window.location.origin + window.location.pathname);
+
+      console.log('Login triggered from:', returnTo);
+
+      // Redirect to auth service with the original page as return_to
+      var authUrl = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(returnTo);
+      window.location.replace(authUrl);
     }
 
     // Check if we just returned from login (has auth cookies but no login param)
@@ -84,10 +89,15 @@ app.get("/members", (req, res) => {
     // Check if this page was opened for login (from Intercom widget)
     var urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('login')) {
-      // Redirect to auth service
-      var currentUrl = window.location.origin + window.location.pathname;
-      var authUrl = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(currentUrl);
-      window.location.href = authUrl;
+      // Capture where user came from (e.g., lehotsky.net/members, riscv.org/resources)
+      // document.referrer contains the full URL of the page that linked here
+      var returnTo = document.referrer || (window.location.origin + window.location.pathname);
+
+      console.log('Login triggered from:', returnTo);
+
+      // Redirect to auth service with the original page as return_to
+      var authUrl = 'https://intercom-auth.lehotsky.net/login?return_to=' + encodeURIComponent(returnTo);
+      window.location.replace(authUrl);
     }
 
     // Check if we just returned from login (has auth cookies but no login param)
